@@ -25,7 +25,7 @@ pip install -e .
 # How To Run
 The CDC algorithm package provides the `cdc_cluster` function for clustering.
 
-The description of the hyperparameters for user configuration are presented as follows 
+The description of the hyperparameters for user configuration are presented as follows: 
 ```python
 def cdc_cluster(X: np.ndarray, k_num: int, ratio: float) -> np.ndarray:
     """Clustering by measuring local Direction Centrality (CDC) algorithm.
