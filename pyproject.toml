@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cdc-cluster"
+version = "0.1.0"
+description = "A novel Clustering algorithm by measuring Direction Centrality (CDC) locally. It adopts a density-independent metric based on the distribution of K-nearest neighbors (KNNs) to distinguish between internal and boundary points. The boundary points generate enclosed cages to bind the connections of internal points."
+authors = [
+    {name = "pdh", email = "pengdh@whu.edu.cn"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = [
+    "clustering",
+    "centrality",
+    "boundary detection"
+]
+dependencies = [
+    "scikit-learn>=1.0.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/ZPGuiGroupWhu/CDC-pkg"
+Repository = "https://github.com/ZPGuiGroupWhu/CDC-pkg.git"
+"Bug Tracker" = "https://github.com/ZPGuiGroupWhu/CDC-pkg/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["cdc"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/cdc",
+    "/README.md",
+    "/LICENSE",
+]
