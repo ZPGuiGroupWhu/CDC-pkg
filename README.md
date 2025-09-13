@@ -5,7 +5,16 @@ We propose a novel Clustering algorithm by measuring Direction Centrality (CDC) 
 
 ![image](https://github.com/ZPGuiGroupWhu/ClusteringDirectionCentrality/blob/master/pics/cdc_algorithm.png)
 
+# Installation
+Supported python versions are 3.9.1 and above
+This project has been uploaded to pypi, supporting direct download and installation from pypi:
 
+```ruby
+pip install cdc
+```ruby
+
+## Automatic Installation (Recommended)
+## Manual Installation
 # Citation Request:
 Peng, D., Gui, Z.*, Wang, D. et al. Clustering by measuring local direction centrality for data with heterogeneous density and weak connectivity. Nat. Commun. 13, 5455 (2022).
 https://www.nature.com/articles/s41467-022-33136-9
