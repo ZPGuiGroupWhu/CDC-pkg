@@ -1,5 +1,4 @@
-# Clustering by measuring local direction centrality for data with heterogeneous density and weak connectivity (CDC)
-
+# The Python version of the CDC algorithm
 
 We propose a novel Clustering algorithm by measuring Direction Centrality (CDC) locally. It adopts a density-independent metric based on the distribution of K-nearest neighbors (KNNs) to distinguish between internal and boundary points. The boundary points generate enclosed cages to bind the connections of internal points, thereby preventing cross-cluster connections and separating weakly-connected clusters. We present an interactive ***Demo*** and a brief introduction to the algorithm at ***https://zpguigroupwhu.github.io/CDC-Introduction-Website/***, and develop a CDC toolkit at ***https://github.com/ZPGuiGroupWhu/ClusteringDirectionCentrality*** This paper has been published in ***Nature Communications***, and more details can be seen https://www.nature.com/articles/s41467-022-33136-9. 
 
