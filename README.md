@@ -6,7 +6,7 @@ We propose a novel Clustering algorithm by measuring Direction Centrality (CDC) 
 ![image](https://github.com/ZPGuiGroupWhu/ClusteringDirectionCentrality/blob/master/pics/cdc_algorithm.png)
 
 # Installation
-Supported `python` versions are `3.7` and above.
+Supported `python` versions are `3.8` and above.
 
 This project has been uploaded to [PyPI](https://pypi.org/project/cdc-cluster/), supporting direct download and installation from pypi
 
