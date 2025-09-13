@@ -61,8 +61,27 @@ def cdc_cluster(X: np.ndarray, k_num: int, ratio: float) -> np.ndarray:
         - The algorithm automatically handles edge cases and numerical instabilities
     """
 ```
+After installing the CDC library, you can use this function as follows:
+```ruby
+from CDC import cdc_cluster
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import time
+import math
+raw_data = pd.read_table('DS1.txt', header=None)
+X = np.array(raw_data)
+[n, d] = X.shape
+data = X[:, :d-1]
+ref = X[:, d-1]
+time_start = time.time()
+res = cdc_cluster(X=data, k_num=30, ratio=0.72)
+time_end = time.time()
+print(time_end-time_start)
 
-
+plt.scatter(data[:, 0], data[:, 1], c=res, s=10, cmap='hsv', marker='o')
+plt.show()
+```
 # Citation Request:
 Peng, D., Gui, Z.*, Wang, D. et al. Clustering by measuring local direction centrality for data with heterogeneous density and weak connectivity. Nat. Commun. 13, 5455 (2022).
 https://www.nature.com/articles/s41467-022-33136-9
