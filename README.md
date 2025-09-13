@@ -46,7 +46,6 @@ def cdc_cluster(X: np.ndarray, k_num: int, ratio: float) -> np.ndarray:
         ratio (float): Ratio for determining the DCM threshold. Must be between 0 and 1.
             Lower values result in fewer internal points and more boundary points.
 
-
     Returns:
         np.ndarray: Cluster labels for each data point. Shape (n_samples,).
             Labels are integers starting from 1, where points with the same label
