@@ -11,7 +11,7 @@ We also provide a separated code module named scRNA-seq Result Reproduction to f
 
 Now, a parallel version of the algorithm CDC in Java is also under developing based on High-Performance Computing (HPC) framework Apache Spark, which is nested under the folder "HPC-version".
 
-![image](https://github.com/ZPGuiGroupWhu/ClusteringDirectionCentrality/blob/master/pics/index1.jpg)
+![image](https://github.com/ZPGuiGroupWhu/ClusteringDirectionCentrality/blob/master/pics/cdc_algorithm.png)
 
 
 # Citation Request:
