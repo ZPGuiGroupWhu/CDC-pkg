@@ -1,6 +1,6 @@
 [project]
 name = "cdc-cluster"
-version = "0.1.1"
+version = "0.2.0"
 description = "A novel Clustering algorithm by measuring Direction Centrality (CDC) locally. It adopts a density-independent metric based on the distribution of K-nearest neighbors (KNNs) to distinguish between internal and boundary points. The boundary points generate enclosed cages to bind the connections of internal points."
 authors = [
     {name = "pdh", email = "pengdh@whu.edu.cn"}
@@ -40,3 +40,9 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 packages = ["cdc"]
+
+[dependency-groups]
+dev = [
+    "matplotlib>=3.7.5",
+    "pytest>=8.3.5",
+]

@@ -22,71 +22,49 @@ cd CDC-pkg
 pip install -e .
 ```
 
-# How To Run
-The CDC algorithm package provides the `cdc_cluster` function for clustering.
+# Usage
+The CDC algorithm is refactored to be a scikit-learn compatible estimator. It provides both a class-based interface `CDC` and a function-based interface `cdc_cluster`.
 
-The description of the hyperparameters for user configuration are presented as follows: 
+### Class-based Usage
 ```python
-def cdc_cluster(X: np.ndarray, k_num: int, ratio: float) -> np.ndarray:
-    """Clustering by measuring local Direction Centrality (CDC) algorithm.
-
-    This function implements the CDC clustering algorithm, which is a connectivity-based
-    clustering method that identifies boundary points using a directional centrality
-    metric (DCM) and connects internal points to generate cluster labels. DCM is defined
-    as angle variance in 2D space and simplex volume variance in higher dimensions.
-
-    The algorithm works in several steps:
-    1. For each point, find k-nearest neighbors
-    2. For each point, calculate its DCM
-    3. Identify boundary and internal points based on the DCM threshold
-    4. Calculate reachable distances of the internal points
-    5. Form clusters by connecting nearby internal points
-    6. Assign boundary points to nearest clusters
-
-    Args:
-        X (np.ndarray): Input data matrix of shape (n_samples, n_features).
-            Each row represents a data point and each column represents a feature.
-        k_num (int): Number of nearest neighbors to consider. Must be greater than 0.
-            This parameter controls the local neighborhood size.
-        ratio (float): Ratio for determining the DCM threshold. Must be between 0 and 1.
-            Lower values result in fewer internal points and more boundary points.
-
-    Returns:
-        np.ndarray: Cluster labels for each data point. Shape (n_samples,).
-            Labels are integers starting from 1, where points with the same label
-            belong to the same cluster.
-
-    Raises:
-        AssertionError: If k_num <= 0 or ratio is not in (0, 1).
-        ValueError: If X is not a 2D array or has insufficient data points.
-
-    Note:
-        - For 2D data, the algorithm uses angle variance between k-nearest neighbors
-        - For higher dimensional data, it uses convex hull simplex volume variance
-        - The algorithm automatically handles edge cases and numerical instabilities
-    """
-```
-After installing the CDC library, you can use this function as follows:
-```python
-from cdc import cdc_cluster
+from cdc import CDC
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
-import time
-# DS1.txt link: https://github.com/ZPGuiGroupWhu/ClusteringDirectionCentrality/blob/master/Toolkit/Python/DS1.txt
-raw_data = pd.read_table('DS1.txt', header=None)
-X = np.array(raw_data)
-[n, d] = X.shape
-data = X[:, :d-1]
-ref = X[:, d-1]
-time_start = time.time()
-res = cdc_cluster(X=data, k_num=30, ratio=0.72)
-time_end = time.time()
-print(time_end-time_start)
+from sklearn.datasets import make_moons
 
-plt.scatter(data[:, 0], data[:, 1], c=res, s=10, cmap='hsv', marker='o')
+# Generate sample data
+X, _ = make_moons(n_samples=200, noise=0.05, random_state=42)
+
+# Initialize and fit CDC
+# n_neighbors: Number of nearest neighbors to consider (k_num)
+# ratio: Ratio for determining the DCM threshold
+cdc = CDC(n_neighbors=20, ratio=0.9)
+cdc.fit(X)
+
+# Get cluster labels
+# Labels start from 0. Noisy samples are labeled as -1.
+labels = cdc.labels_
+
+# Plot result
+plt.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis')
+plt.title("CDC Clustering Result")
 plt.show()
 ```
+
+### Function-based Usage
+```python
+from cdc import cdc_cluster
+from sklearn.datasets import make_blobs
+
+X, _ = make_blobs(n_samples=200, centers=3, random_state=42)
+
+# Compute clustering directly
+# Returns an array of cluster labels
+labels = cdc_cluster(X, n_neighbors=20, ratio=0.9)
+
+print(f"Number of clusters: {len(set(labels)) - (1 if -1 in labels else 0)}")
+```
+
 # Citation Request:
 Peng, D., Gui, Z.*, Wang, D. et al. Clustering by measuring local direction centrality for data with heterogeneous density and weak connectivity. Nat. Commun. 13, 5455 (2022).
 https://www.nature.com/articles/s41467-022-33136-9
