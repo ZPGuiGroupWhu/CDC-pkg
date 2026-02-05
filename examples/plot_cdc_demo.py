@@ -9,7 +9,7 @@ Demonstrates the CDC clustering algorithm on a synthetic dataset.
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_moons, make_blobs
-from cdc import CDC, cdc_cluster
+from cdc_cluster import CDC, cdc_cluster
 
 def plot_clustering(X, labels, title):
     unique_labels = np.unique(labels)

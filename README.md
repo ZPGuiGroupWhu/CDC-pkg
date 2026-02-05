@@ -27,7 +27,7 @@ The CDC algorithm is refactored to be a scikit-learn compatible estimator. It pr
 
 ### Class-based Usage
 ```python
-from cdc import CDC
+from cdc_cluster import CDC
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_moons
@@ -53,7 +53,7 @@ plt.show()
 
 ### Function-based Usage
 ```python
-from cdc import cdc_cluster
+from cdc_cluster import cdc_cluster
 from sklearn.datasets import make_blobs
 
 X, _ = make_blobs(n_samples=200, centers=3, random_state=42)

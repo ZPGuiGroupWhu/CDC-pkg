@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 from sklearn.datasets import make_blobs
-from cdc import CDC, cdc_cluster
+from cdc_cluster import CDC, cdc_cluster
 
 def test_cdc_class():
     X, y = make_blobs(n_samples=100, centers=3, random_state=42)

@@ -1,6 +1,6 @@
 [project]
 name = "cdc-cluster"
-version = "0.2.0"
+version = "0.2.1"
 description = "A novel Clustering algorithm by measuring Direction Centrality (CDC) locally. It adopts a density-independent metric based on the distribution of K-nearest neighbors (KNNs) to distinguish between internal and boundary points. The boundary points generate enclosed cages to bind the connections of internal points."
 authors = [
     {name = "pdh", email = "pengdh@whu.edu.cn"}
@@ -35,14 +35,16 @@ Repository = "https://github.com/ZPGuiGroupWhu/CDC-pkg.git"
 "Bug Tracker" = "https://github.com/ZPGuiGroupWhu/CDC-pkg/issues"
 
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["cdc"]
+packages = ["cdc_cluster"]
 
 [dependency-groups]
 dev = [
+    "build>=1.2.2.post1",
     "matplotlib>=3.7.5",
     "pytest>=8.3.5",
+    "twine>=6.1.0",
 ]
