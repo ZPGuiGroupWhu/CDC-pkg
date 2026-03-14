@@ -9,17 +9,20 @@ from sklearn.base import BaseEstimator, ClusterMixin
 from sklearn.neighbors import NearestNeighbors
 from sklearn.utils.validation import check_array
 
+
 def cdc_cluster(X, n_neighbors=20, ratio=0.9):
     """
-    Perform CDC clustering from vector array or distance matrix.
+    Perform CDC clustering from a dense feature matrix.
     
     Parameters
     ----------
-    X : {array-like, sparse matrix} of shape (n_samples, n_features)
+    X : array-like of shape (n_samples, n_features)
         Training instances.
         
     n_neighbors : int, default=20
-        Number of nearest neighbors to consider.
+        Number of nearest neighbors to consider. If the requested number of
+        neighbors exceeds the number of available samples, all other samples
+        are used.
         
     ratio : float, default=0.9
         Ratio for determining the DCM threshold. Must be between 0 and 1.
@@ -31,20 +34,27 @@ def cdc_cluster(X, n_neighbors=20, ratio=0.9):
     """
     X = check_array(X)
     
-    if n_neighbors <= 0:
+    if not isinstance(n_neighbors, (int, np.integer)) or n_neighbors <= 0:
         raise ValueError("n_neighbors must be greater than 0")
     if not (0 < ratio < 1):
         raise ValueError("ratio must be between 0 and 1")
 
-    k_num = n_neighbors
     num, d = X.shape
+    if num <= 1:
+        return np.zeros(num, dtype=int)
+
+    k_num = min(n_neighbors, num - 1)
+    if k_num < 2:
+        # CDC relies on neighborhood geometry; with fewer than two neighbours
+        # there is not enough information to estimate direction centrality.
+        return np.zeros(num, dtype=int)
 
     # Nearest Neighbors
     # Note: We need k_num + 1 because the point itself is included
-    nbrs = NearestNeighbors(n_neighbors=k_num+1, algorithm='ball_tree').fit(X)
+    nbrs = NearestNeighbors(n_neighbors=k_num + 1, algorithm='ball_tree').fit(X)
     indices = nbrs.kneighbors(X, return_distance=False)
     # Exclude the point itself (first column)
-    get_knn = indices[:, 1:k_num+1]
+    get_knn = indices[:, 1 : k_num + 1]
 
     angle_var = np.zeros(num)
     
@@ -237,8 +247,7 @@ class CDC(BaseEstimator, ClusterMixin):
         self : object
             Fitted estimator.
         """
-        X = check_array(X)
-        self.n_features_in_ = X.shape[1]
+        X = self._validate_data(X, ensure_2d=True, dtype=np.float64)
         self.labels_ = cdc_cluster(X, n_neighbors=self.n_neighbors, ratio=self.ratio)
         return self
 
@@ -258,5 +267,5 @@ class CDC(BaseEstimator, ClusterMixin):
         labels : ndarray of shape (n_samples,)
             Cluster labels.
         """
-        self.fit(X)
+        self.fit(X, y=y)
         return self.labels_
